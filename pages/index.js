@@ -1,16 +1,38 @@
 import React from 'react'
+import { useState } from 'react';
 
+import Nav from '../components/nav';
 import Layout from '../components/layout';
 
-import posts from '../data/posts';
-import AnimationPostList from '../components/AnimationPostList';
+import AdaptivePostList from '../pages/AdaptivePostList';
 
-const Home = () => (
-  <div>
+const Home = () => {
+  
+  const [manualAnimation, checkManualAnimation] = useState(false);
+
+  const checkManualAnimationTestHandler = flag => {
+    checkManualAnimation(flag);
+  };
+
+  const [animation, setAnimation] = useState(true);
+
+  const toggleManualAnimationTestHandler = checked => {
+    setAnimation(checked);
+  };
+
+  return (
+    <div>
+      <Nav 
+      manualAnimation={manualAnimation}
+      checkManualAnimation={checkManualAnimationTestHandler}
+      toggleManualAnimation={toggleManualAnimationTestHandler} />
     <Layout>
+
       <div className='container'>
         <h1 className='title'>Next.js &amp; Framer Motion</h1>
-        <AnimationPostList posts={posts} />
+        <AdaptivePostList 
+            manualAnimation={manualAnimation}
+            animation={animation} />
       </div>
     </Layout>
 
@@ -61,6 +83,8 @@ const Home = () => (
       }
     `}</style>
   </div>
-);
+  );
+  
+};
 
 export default Home;

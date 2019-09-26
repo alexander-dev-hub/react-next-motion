@@ -67,7 +67,7 @@ const AnimationPost = props => {
         </motion.div>
 
         <motion.div variants={backVariants}>
-          <Link href="/animation">
+          <Link href="/">
             <a>Back to list</a>
           </Link>
         </motion.div>

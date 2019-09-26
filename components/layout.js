@@ -1,19 +1,19 @@
-import Head from 'next/head'
-import Nav from './nav'
+import Head from 'next/head';
 
 const layoutStyle = {
-  margin: 20,
-  padding: 20,
+  margin: 10,
+  padding: 10,
   border: '1px solid #DDD'
 };
 
-const Layout = props => (
-  <div style={layoutStyle}>
+const Layout = props => {
+
+  return (
+    <div style={layoutStyle}>
     <Head>
       <title>Home</title>
     </Head>
 
-    <Nav />
     <div className="page-wrapper">
       <div className="content-wrapper">
         {props.children}
@@ -57,6 +57,7 @@ const Layout = props => (
     `}</style>
     </div>
   </div>
-);
+  );
+};
 
 export default Layout;
