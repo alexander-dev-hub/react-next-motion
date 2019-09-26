@@ -5,7 +5,7 @@ import Layout from '../../components/layout';
 import Link from 'next/link';
 import posts from '../../data/posts';
 import { motion } from 'framer-motion';
-import PostInfo from '../../components/post-info';
+import PostInfo from '../../components/PostInfo';
 
 let easing = [0.175, 0.85, 0.42, 0.96];
 
@@ -87,7 +87,7 @@ const AnimationPost = props => {
 };
 
 AnimationPost.getInitialProps = ({ query }) => {
-  let post = posts.find(post => post.id == query.animationpost);
+  let post = posts.find(post => post.id == query.index);
   return {
     post
   };

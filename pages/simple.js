@@ -1,7 +1,8 @@
 import Layout from '../components/layout';
 
 import posts from '../data/posts';
-import SimplePostList from '../components/simple-post-list';
+import SimplePostList from '../components/SimplePostList';
+
 const Simple = () => {
   return (
     <Layout>
@@ -11,6 +12,6 @@ const Simple = () => {
       </div>
     </Layout>
   );
-}
+};
 
-export default Simple
+export default Simple;

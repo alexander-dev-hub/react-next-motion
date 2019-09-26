@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Nav from '../components/nav'
+import Nav from './nav'
 
 const layoutStyle = {
   margin: 20,

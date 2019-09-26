@@ -5,7 +5,7 @@ import Layout from '../../components/layout';
 import Link from 'next/link';
 import posts from '../../data/posts';
 import { motion } from 'framer-motion';
-import PostInfo from '../../components/post-info';
+import PostInfo from '../../components/PostInfo';
 
 const SimplePost = props => {
   useEffect(() => {
@@ -44,7 +44,7 @@ const SimplePost = props => {
 };
 
 SimplePost.getInitialProps = ({ query }) => {
-  let post = posts.find(post => post.id == query.simplepost);
+  let post = posts.find(post => post.id == query.index);
   return {
     post
   };

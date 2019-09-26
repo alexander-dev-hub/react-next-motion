@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import PostInfo from './post-info';
+import PostInfo from '../PostInfo';
 
 const SimplePostList = ({ posts }) => (
   <div>
@@ -8,7 +8,7 @@ const SimplePostList = ({ posts }) => (
       {posts.map(post => {
         return (
           <div key={post.id} className="post">
-            <Link scroll={false} href="/simplepost/[simplepost]" as={`/simplepost/${post.id}`}>
+            <Link scroll={false} href="/SimplePost/[index]" as={`/simplePost/${post.id}`}>
               <a>
                 <div>
                   <img src={`/static/images/${post.id}.jpg`} />
