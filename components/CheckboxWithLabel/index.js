@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { Checkbox } from "antd";
 
 const CheckboxWithLabel = ({ label, toggle }) => {
 
@@ -8,14 +7,17 @@ const CheckboxWithLabel = ({ label, toggle }) => {
   };
 
   return (
-    <Fragment>
-      <span className='label'>{label}</span>
-      <Checkbox onChange={toggleHandler} />
-    </Fragment>
-    // <div className="checkbox">
-    //   <span className='label'>{label}</span>
-    //   <input type="checkbox" onChange={toggleHandler} />
-    // </div>
+    <div className="checkbox">
+      <label>
+        <input type="checkbox" onChange={toggleHandler}/>
+        {label}
+      </label>
+      <style jsx global>{`      
+        div.checkbox {
+          margin-left: 20px;
+        }
+      `}</style>
+    </div>
   )
 };
 

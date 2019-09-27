@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 import CheckboxWithLabel from './CheckboxWithLabel';
 import SwitchWithLabel from './SwitchWithLabel';
-import MemoryStatus from './MemoryStatus';
 
 const linkStyle = {
   marginRight: 8,
@@ -19,19 +18,15 @@ const links = [
 
 const Nav = ({
   manualAnimation,
-  toggleManualAnimation,
-  checkManualAnimation
+  checkManualAnimation,
+  toggleManualAnimation
   }) => {
     return (
       <nav>
         <ul>
-          <li>
-            <Link href='/'>
-              <a style={linkStyle}>Next.js &amp; Framer Motion</a>
-            </Link>
-            <Link href='/simple'>
-              <a style={linkStyle}>Turned off Animation</a>
-            </Link>
+          <li>            
+            <SwitchWithLabel  label='Animation On/Off' defaultChecked disabled={!manualAnimation} onChange={toggleManualAnimation}/>
+            <CheckboxWithLabel label='Enable/Disable' toggle={checkManualAnimation}/>
           </li>
           {links.map(({ key, href, label }) => (
             <li key={key}>
@@ -39,19 +34,6 @@ const Nav = ({
             </li>
           ))}
         </ul>
-        <MemoryStatus />
-
-          <div className='animation-setting'>
-            <fieldset className='scheduler-border'>
-              <legend className='scheduler-border'>Manual Animation Test</legend>
-              <div className='control-group'>
-                  <div className='controls bootstrap-timepicker'>
-                      <SwitchWithLabel label='Animation is turn on? ' disabled={!manualAnimation} defaultChecked onChange={toggleManualAnimation} />
-                      <CheckboxWithLabel label='Enable/Disable' toggle={checkManualAnimation} />
-                  </div>
-              </div>
-            </fieldset>
-          </div>
 
         <style jsx>{`
           :global(body) {
@@ -78,7 +60,7 @@ const Nav = ({
           a {
             color: #067df7;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
           }
         `}</style>
       </nav>

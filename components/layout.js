@@ -1,5 +1,8 @@
 import Head from 'next/head';
 
+import Nav from './nav';
+import MemoryStatus from './MemoryStatus';
+
 const layoutStyle = {
   margin: 10,
   padding: 10,
@@ -7,13 +10,18 @@ const layoutStyle = {
 };
 
 const Layout = props => {
-
+  const { manualAnimation, checkManualAnimation, toggleManualAnimation, ...rest } = props;
   return (
     <div style={layoutStyle}>
     <Head>
       <title>Home</title>
-    </Head>
+    </Head> 
 
+    <Nav 
+      manualAnimation={manualAnimation}
+      checkManualAnimation={checkManualAnimation}
+      toggleManualAnimation={toggleManualAnimation}/>
+    <MemoryStatus />
     <div className="page-wrapper">
       <div className="content-wrapper">
         {props.children}

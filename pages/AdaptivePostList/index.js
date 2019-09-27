@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, Fragment } from 'react';
+import React, { Suspense, Fragment } from 'react';
 
 import { useMemoryStatus } from '../../utils/hooks';
 
@@ -6,9 +6,6 @@ import SimplePostList from '../../components/SimplePostList';
 import AnimationPostList from '../../components/AnimationPostList';
 
 import posts from '../../data/posts';
-
-// const LazySimplePostList = lazy(() => import('../../components/SimplePostList'));
-// const LazyAnimationPostList = lazy(() => import('../../components/AnimationPostList'));
 
 const Loading = () => <Fragment>Loading...</Fragment>;
 
@@ -20,7 +17,6 @@ const AdaptivePost = ({ manualAnimation, animation }) => {
   const { overLoaded } = memoryStatus;
   let isAnimationPost = true;
 
-  // memory hook override
   if (manualAnimation) {
     isAnimationPost = animation;
   } else {
@@ -34,9 +30,9 @@ const AdaptivePost = ({ manualAnimation, animation }) => {
   );
 
   return (
-    // <Suspense fallback={<Loading />}>
+    <Suspense fallback={<Loading />}>
       <div>{adaptivePost}</div>
-    // </Suspense>    
+    </Suspense>    
   );
 };
 

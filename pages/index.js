@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-import Nav from '../components/nav';
+
 import Layout from '../components/layout';
 
 import AdaptivePostList from '../pages/AdaptivePostList';
@@ -16,20 +16,27 @@ const Home = () => {
 
   const [animation, setAnimation] = useState(true);
 
-  const toggleManualAnimationTestHandler = checked => {
-    setAnimation(checked);
+  const toggleManualAnimationTestHandler = event => {
+    setAnimation(event.target.checked);
   };
+
+  let title = 'Welcome to Next.js';
+
+  if (animation) {
+    title = "Next.js & Framer Motion Page";
+  } else {
+    title = "Simple Page(No Animation)";
+  }
 
   return (
     <div>
-      <Nav 
+    <Layout 
       manualAnimation={manualAnimation}
       checkManualAnimation={checkManualAnimationTestHandler}
-      toggleManualAnimation={toggleManualAnimationTestHandler} />
-    <Layout>
+      toggleManualAnimation={toggleManualAnimationTestHandler}>
 
       <div className='container'>
-        <h1 className='title'>Next.js &amp; Framer Motion</h1>
+        <h1 className='title'>{title}</h1>
         <AdaptivePostList 
             manualAnimation={manualAnimation}
             animation={animation} />
@@ -44,9 +51,8 @@ const Home = () => {
       .title {
         margin: 0;
         width: 100%;
-        padding-top: 80px;
         line-height: 1.15;
-        font-size: 48px;
+        font-size: 32px;
       }
       .title,
       .description {
@@ -84,7 +90,6 @@ const Home = () => {
     `}</style>
   </div>
   );
-  
 };
 
 export default Home;

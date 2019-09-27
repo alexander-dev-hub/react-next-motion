@@ -7,11 +7,9 @@ import PostInfo from '../../components/PostInfo';
 import Layout from '../../components/layout';
 
 const SimplePost = props => {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
-
-  console.log(props);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout>
