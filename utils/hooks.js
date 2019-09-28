@@ -23,11 +23,10 @@ const MAX_MEMORY_LIMIT = 50 * 1048576; // 50MB
 const MAX_PERCENT_THRESHOLD = 90;
 
 const useMemoryStatus = () => {
-
   const [memoryStatus, setMemoryStatus] = useState(null);
-
+  // TODO: point out -> we must call use client side(browser) features like window and navigator after componets are mounted
+  // that's why we put the logic inside useEffect hook.
   useEffect(() => {
-
     const windowPerformance = window.performance;
     const isMemorySupported = () => {
       return windowPerformance && windowPerformance.memory && navigator.deviceMemory;
@@ -73,7 +72,6 @@ const useMemoryStatus = () => {
     } else {
       setMemoryStatus({ unsupportMessage });
     }
-    // eslint-disable-next-line
   }, []);
 
   return memoryStatus;
