@@ -7,18 +7,19 @@ const githubLink = {
   href: 'https://github.com/alexander-dev-hub/react-next-motion',
 };
 
-const Nav = ({ manualEnabled, enableManualAnimation, toggleAnimation }) => {
+const Nav = ({ manualEnabled, isAnimationOn, enableManualAnimation, toggleAnimation }) => {
   return (
     <nav>
       <ul>
         <li>
           <SwitchWithLabel 
-            defaultChecked
             label='Animation On/Off'
             disabled={!manualEnabled}
+            checked={isAnimationOn}
             onChange={toggleAnimation} />
           <CheckboxWithLabel
             label='Enable Manual Animation'
+            checked={manualEnabled}
             toggle={enableManualAnimation} />
         </li>
         <li><a href={githubLink.href}>{githubLink.label}</a></li>
