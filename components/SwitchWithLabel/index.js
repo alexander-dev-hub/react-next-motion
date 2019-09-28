@@ -1,16 +1,25 @@
-import React, { Fragment } from 'react';
 
-import Toggle from 'react-toggle';
+import Toggle from 'react-toggle'; // TODO: update -> deprecated lifecyle usage detected
 
 const SwitchWithLabel = ({ label, ...rest }) => {
   return (
-      <div>
-        <label>
-          {label}
-          <Toggle {...rest}/>
-        </label>
-        <style jsx global>{`
-          .react-toggle {
+    <div className='switch-with-label'>
+      <Toggle {...rest}/>
+      <label>
+        {label}
+      </label>
+      <style jsx global>{`
+        .switch-with-label {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+          border: 1px solid #1890ff;
+          border-radius: 20px;
+        }
+        .switch-with-label .react-toggle {
+          margin-right: 12px;
+        }
+        .react-toggle {
           touch-action: pan-x;
 
           display: inline-block;

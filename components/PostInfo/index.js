@@ -1,8 +1,9 @@
+
 const PostInfo = ({ post }) => {
   return (
-    <div className="post-info">
-      <div className="author">
-        <img width={35} height={35} className="avatar" src={`/static/avatars/${post.author.avatar}`} />{' '}
+    <div className='post-info'>
+      <div className='author'>
+        <img width={35} height={35} className='avatar' src={`/static/avatars/${post.author.avatar}`} />{' '}
         <strong>{post.author.name}</strong> ({post.author.age})
       </div>
       <time>{post.date}</time>
