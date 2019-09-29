@@ -1,13 +1,21 @@
 
-import CheckboxWithLabel from '../CheckboxWithLabel';
+import { useContext } from 'react';
 import SwitchWithLabel from '../SwitchWithLabel';
+import CheckboxWithLabel from '../CheckboxWithLabel';
+import AnimationEmulationContext from '../AnimationEmulationContext';
 
 const githubLink = {
   label: 'GitHub',
   href: 'https://github.com/alexander-dev-hub/react-next-motion',
 };
 
-const Nav = ({ manualEnabled, isAnimationOn, enableManualAnimation, toggleAnimation }) => {
+const Nav = () => {
+  const {
+    manualEnabled,
+    isAnimationOn,
+    enableManualAnimationHandler,
+    toggleAnimationHandler
+  } = useContext(AnimationEmulationContext);
   return (
     <nav>
       <ul>
@@ -16,11 +24,11 @@ const Nav = ({ manualEnabled, isAnimationOn, enableManualAnimation, toggleAnimat
             label='Animation On/Off'
             disabled={!manualEnabled}
             checked={isAnimationOn}
-            onChange={toggleAnimation} />
+            onChange={toggleAnimationHandler} />
           <CheckboxWithLabel
             label='Enable Manual Animation'
             checked={manualEnabled}
-            toggle={enableManualAnimation} />
+            toggle={enableManualAnimationHandler} />
         </li>
         <li><a href={githubLink.href}>{githubLink.label}</a></li>
       </ul>

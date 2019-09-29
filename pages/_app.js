@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import App from 'next/app';
-import StateContext from '../components/StateContext';
+
+import AnimationEmulationContext from '../components/AnimationEmulationContext';
 
 class MyApp extends App {
   state = {
@@ -10,53 +12,44 @@ class MyApp extends App {
 
   componentDidMount = () => {
     const manualEnabled = localStorage.getItem('manual-enabled');
-    const isAnimationOn = localStorage.getItem('animation-on');
-    
-    if (!manualEnabled) {
-      this.setState({
-        manualEnabled: false,
-        isAnimationOn: true
-      });
-    } else {
-      this.setState({
-        manualEnabled,
-        isAnimationOn
-      });
-      localStorage.setItem('manual-enabled', this.state.manualEnabled);
-      localStorage.setItem('animation-on', this.state.isAnimationOn);
+    const isAnimationOn = localStorage.getItem('is-animation-on');
+
+    if (manualEnabled) {
+      this.setState({manualEnabled});
+    }
+
+    if (isAnimationOn) {
+      this.setState({isAnimationOn});
     }
   };
 
-  enableManualAnimationHandler = (flag) => {
+  enableManualAnimationHandler = flag => {
     localStorage.setItem('manual-enabled', flag);
-    localStorage.setItem('animation-on', this.state.isAnimationOn);
-    this.setState(
-      {
-        manualEnabled: flag
-      }
-    );
+    this.setState({
+      manualEnabled: flag
+    });
   };
 
-  toggleAnimationHandler = (event) => {
-    localStorage.setItem('animation-on', event.target.checked);
-    localStorage.setItem('manual-enabled', this.state.manualEnabled);
-    this.setState(
-      {
-        isAnimationOn: event.target.checked
-      }
-    );
+  toggleAnimationHandler = event => {
+    localStorage.setItem('is-animation-on', event.target.checked);
+    this.setState({
+      isAnimationOn: event.target.checked
+    });
   };
 
   render() {
     const { Component, pageProps, router } = this.props;
+    const { manualEnabled, isAnimationOn } = this.state;
     return (
-      <StateContext.Provider value={{
-        manualEnabled: this.state.manualEnabled,
-        isAnimationOn: this.state.isAnimationOn,
-        enableManualAnimationHandler: this.enableManualAnimationHandler,
-        toggleAnimationHandler: this.toggleAnimationHandler}}>
+      <AnimationEmulationContext.Provider
+        value={{
+          manualEnabled,
+          isAnimationOn,
+          enableManualAnimationHandler: this.enableManualAnimationHandler,
+          toggleAnimationHandler: this.toggleAnimationHandler
+        }}>
           <Component {...pageProps} key={router.route} />
-      </StateContext.Provider>
+      </AnimationEmulationContext.Provider>
     );
   }
 }

@@ -4,7 +4,7 @@ import Toggle from 'react-toggle'; // TODO: update -> deprecated lifecyle usage 
 const SwitchWithLabel = ({ label, ...rest }) => {
   return (
     <div className='switch-with-label'>
-      <Toggle {...rest} />
+      <Toggle {...rest}/>
       <label>
         {label}
       </label>

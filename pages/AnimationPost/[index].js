@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-
-import Layout from '../../components/layout';
-import PostInfo from '../../components/PostInfo';
 import Link from 'next/link';
-import posts from '../../data/posts';
 import { motion } from 'framer-motion';
 
-let easing = [0.175, 0.85, 0.42, 0.96];
+import posts from '../../data/posts';
+import Layout from '../../components/layout';
+import PostInfo from '../../components/PostInfo';
+
+const easing = [0.175, 0.85, 0.42, 0.96];
 
 const imageVariants = {
   exit: { y: 150, opacity: 0, transition: { duration: 0.5, ease: easing } },
