@@ -1,12 +1,13 @@
 
 import { useContext } from 'react';
+
 import SwitchWithLabel from '../SwitchWithLabel';
 import CheckboxWithLabel from '../CheckboxWithLabel';
 import AnimationEmulationContext from '../AnimationEmulationContext';
 
 const githubLink = {
   label: 'GitHub',
-  href: 'https://github.com/alexander-dev-hub/react-next-motion',
+  href: 'https://github.com/anton-karlovskiy/cna-memory-considerate-animation',
 };
 
 const Nav = () => {
