@@ -25,16 +25,12 @@ class MyApp extends App {
 
   enableManualAnimationHandler = flag => {
     localStorage.setItem('manual-enabled', flag);
-    this.setState({
-      manualEnabled: flag
-    });
+    this.setState({manualEnabled: flag});
   };
 
   toggleAnimationHandler = event => {
     localStorage.setItem('is-animation-on', event.target.checked);
-    this.setState({
-      isAnimationOn: event.target.checked
-    });
+    this.setState({isAnimationOn: event.target.checked});
   };
 
   render() {
