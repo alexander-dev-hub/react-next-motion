@@ -6,28 +6,13 @@ import AnimationPostList from '../../components/AnimationPostList';
 import SimplePostList from '../../components/SimplePostList';
 import Nav from '../../components/Nav';
 import posts from '../../data/posts';
-import { useMemoryStatus } from '../../utils/hooks';
 
 const Loading = () => <Fragment>Loading...</Fragment>;
 
 const AdaptivePostList = () => {
-  const memoryStatus = useMemoryStatus();
-  const {
-    manualEnabled,
-    isAnimationOn
-  } = useContext(AnimationEmulationContext);
-  
-  if (!memoryStatus) return <Loading />;
-  const { overLoaded } = memoryStatus;
+  const { animationEnabled } = useContext(AnimationEmulationContext);
 
-  let isAnimationPost = true;
-  if (manualEnabled) {
-    isAnimationPost = isAnimationOn;
-  } else {
-    isAnimationPost = !overLoaded;
-  }
-
-  const adaptivePost = isAnimationPost ? (
+  const adaptivePost = animationEnabled ? (
     <AnimationPostList posts={posts} />
   ) : (
     <SimplePostList posts={posts} />
@@ -37,7 +22,7 @@ const AdaptivePostList = () => {
     <Fragment>
       <Nav />
       <h1 className='post-list-title'>
-        {isAnimationOn ? 'Next.js & Framer Motion Page' : 'Next.js & Simple Page(No Animation)'}
+        {animationEnabled ? 'Next.js & Framer Motion Page' : 'Next.js & Simple Page(No Animation)'}
       </h1>
       <Suspense fallback={<Loading />}>
         {adaptivePost}

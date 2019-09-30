@@ -1,55 +1,51 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 import { useMemoryStatus } from '../utils/hooks';
 import AnimationEmulationContext from '../components/AnimationEmulationContext';
 
-const MyApp = ({ Component, pageProps, router }) => {
+const Loading = () => <Fragment>Loading...</Fragment>;
 
+const MyApp = ({ Component, pageProps, router }) => {
   const [manualEnabled, setManualEnabled] = useState(false);
   const [isAnimationOn, setIsAnimationOn] = useState(true);
-  let isAnimation = true;
-  let overLoaded = useMemoryStatus();
-  if (!overLoaded)
-    overLoaded = false;
-
   useEffect(() => {
-    const manualEnabledValue = localStorage.getItem('manual-enabled');
-    const isAnimationOnValue = localStorage.getItem('is-animation-on');
-
-    if (manualEnabledValue) {
-      setManualEnabled(manualEnabledValue);
+    if (manualEnabled) {
+      setManualEnabled(manualEnabled);
     }
 
-    if (isAnimationOnValue) {
-      setIsAnimationOn(isAnimationOnValue);
+    if (isAnimationOn) {
+      setIsAnimationOn(isAnimationOn);
     }
   }, []);
 
+  const memoryStatus = useMemoryStatus();
+  if (!memoryStatus) return <Loading />;
+  const { overLoaded } = memoryStatus;
+
+  let animationEnabled = true;
+  if (manualEnabled) {
+    animationEnabled = isAnimationOn;
+  } else {
+    animationEnabled = !overLoaded;
+  }
+
   const enableManualAnimationHandler = flag => {
-    localStorage.setItem('manual-enabled', flag);
     setManualEnabled(flag);
   };
 
   const toggleAnimationHandler = event => {
-    const { checked } = event.target.checked;
-    localStorage.setItem('is-animation-on', checked);
-    setIsAnimationOn(checked);
+    setIsAnimationOn(event.target.checked);
   };
 
-  if (manualEnabled) {
-    isAnimation = isAnimationOn;
-  } else {
-    isAnimation = !overLoaded;
-  }
-
-  if (isAnimation) {
+  if (animationEnabled) {
     return (
       <AnimationEmulationContext.Provider
         value={{
-          manualEnabled: manualEnabled,
-          isAnimationOn: isAnimationOn,
+          manualEnabled,
+          isAnimationOn,
+          animationEnabled,
           enableManualAnimationHandler: enableManualAnimationHandler,
           toggleAnimationHandler: toggleAnimationHandler
         }}>
@@ -64,6 +60,7 @@ const MyApp = ({ Component, pageProps, router }) => {
         value={{
           manualEnabled,
           isAnimationOn,
+          animationEnabled,
           enableManualAnimationHandler: enableManualAnimationHandler,
           toggleAnimationHandler: toggleAnimationHandler
         }}>
