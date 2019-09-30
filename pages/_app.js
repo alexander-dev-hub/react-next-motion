@@ -1,53 +1,84 @@
 
-import React from 'react';
-import App from 'next/app';
+import React, { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
+import { useMemoryStatus } from '../utils/hooks';
 import AnimationEmulationContext from '../components/AnimationEmulationContext';
 
-class MyApp extends App {
-  state = {
-    manualEnabled: false,
-    isAnimationOn: true
-  };
+const MyApp = ({ Component, pageProps, router }) => {
 
-  componentDidMount = () => {
-    const manualEnabled = localStorage.getItem('manual-enabled');
-    const isAnimationOn = localStorage.getItem('is-animation-on');
+  const [manualEnabled, setManualEnabled] = useState(false);
+  const [isAnimationOn, setIsAnimationOn] = useState(true);
+  let isAnimation = true;
+  let overLoaded = useMemoryStatus();
+  if (!overLoaded)
+    overLoaded = false;
 
-    if (manualEnabled) {
-      this.setState({manualEnabled});
+  useEffect(() => {
+    const manualEnabledValue = localStorage.getItem('manual-enabled');
+    const isAnimationOnValue = localStorage.getItem('is-animation-on');
+
+    if (manualEnabledValue) {
+      setManualEnabled(manualEnabledValue);
     }
 
-    if (isAnimationOn) {
-      this.setState({isAnimationOn});
+    if (isAnimationOnValue) {
+      setIsAnimationOn(isAnimationOnValue);
     }
-  };
+  }, []);
 
-  enableManualAnimationHandler = flag => {
+  const enableManualAnimationHandler = flag => {
     localStorage.setItem('manual-enabled', flag);
-    this.setState({manualEnabled: flag});
+    setManualEnabled(flag);
   };
 
-  toggleAnimationHandler = event => {
-    localStorage.setItem('is-animation-on', event.target.checked);
-    this.setState({isAnimationOn: event.target.checked});
+  const toggleAnimationHandler = event => {
+    const { checked } = event.target.checked;
+    localStorage.setItem('is-animation-on', checked);
+    setIsAnimationOn(checked);
   };
 
-  render() {
-    const { Component, pageProps, router } = this.props;
-    const { manualEnabled, isAnimationOn } = this.state;
+  if (manualEnabled) {
+    isAnimation = isAnimationOn;
+  } else {
+    isAnimation = !overLoaded;
+  }
+
+  if (isAnimation) {
+    return (
+      <AnimationEmulationContext.Provider
+        value={{
+          manualEnabled: manualEnabled,
+          isAnimationOn: isAnimationOn,
+          enableManualAnimationHandler: enableManualAnimationHandler,
+          toggleAnimationHandler: toggleAnimationHandler
+        }}>
+        <AnimatePresence exitBeforeEnter>
+          <Component {...pageProps} key={router.route} />
+        </AnimatePresence>
+      </AnimationEmulationContext.Provider>
+    );
+  } else {
     return (
       <AnimationEmulationContext.Provider
         value={{
           manualEnabled,
           isAnimationOn,
-          enableManualAnimationHandler: this.enableManualAnimationHandler,
-          toggleAnimationHandler: this.toggleAnimationHandler
+          enableManualAnimationHandler: enableManualAnimationHandler,
+          toggleAnimationHandler: toggleAnimationHandler
         }}>
-          <Component {...pageProps} key={router.route} />
+        <Component {...pageProps} key={router.route} />
       </AnimationEmulationContext.Provider>
     );
   }
+}
+
+MyApp.getInitialProps = async ({Component, ctx}) => {
+  let pageProps = {};
+  if(Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+  return {pageProps};
 }
 
 export default MyApp;

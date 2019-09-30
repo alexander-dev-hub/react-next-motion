@@ -49,7 +49,8 @@ const backVariants = {
   }
 };
 
-const AnimationPost = props => {
+const AnimationPost = (props) => {
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -85,7 +86,7 @@ const AnimationPost = props => {
   );
 };
 
-AnimationPost.getInitialProps = ({ query }) => {
+AnimationPost.getInitialProps = ({query}) => {
   const post = posts.find(post => post.id == query.index);
   return {post};
 };
