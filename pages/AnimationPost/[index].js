@@ -85,7 +85,7 @@ const AnimationPost = (props) => {
   );
 };
 
-AnimationPost.getInitialProps = ({query}) => {
+AnimationPost.getInitialProps = ({ query }) => {
   const post = posts.find(post => post.id == query.index);
   return {post};
 };

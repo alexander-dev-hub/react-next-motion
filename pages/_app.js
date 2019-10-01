@@ -24,11 +24,11 @@ const MyApp = ({ Component, pageProps, router }) => {
   if (!memoryStatus) return <Loading />;
   const { overLoaded } = memoryStatus;
 
-  let animationEnabled = true;
+  let animationAllowed = true;
   if (manualEnabled) {
-    animationEnabled = isAnimationOn;
+    animationAllowed = isAnimationOn;
   } else {
-    animationEnabled = !overLoaded;
+    animationAllowed = !overLoaded;
   }
 
   const enableManualAnimationHandler = flag => {
@@ -39,13 +39,13 @@ const MyApp = ({ Component, pageProps, router }) => {
     setIsAnimationOn(event.target.checked);
   };
 
-  if (animationEnabled) {
+  if (animationAllowed) {
     return (
       <AnimationEmulationContext.Provider
         value={{
           manualEnabled,
           isAnimationOn,
-          animationEnabled,
+          animationAllowed,
           enableManualAnimationHandler: enableManualAnimationHandler,
           toggleAnimationHandler: toggleAnimationHandler
         }}>
@@ -60,7 +60,7 @@ const MyApp = ({ Component, pageProps, router }) => {
         value={{
           manualEnabled,
           isAnimationOn,
-          animationEnabled,
+          animationAllowed,
           enableManualAnimationHandler: enableManualAnimationHandler,
           toggleAnimationHandler: toggleAnimationHandler
         }}>
@@ -71,7 +71,7 @@ const MyApp = ({ Component, pageProps, router }) => {
 }
 
 MyApp.getInitialProps = async ({Component, ctx}) => {
-  let pageProps = {};
+  let pageProps;
   if(Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }

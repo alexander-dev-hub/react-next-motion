@@ -10,9 +10,9 @@ import posts from '../../data/posts';
 const Loading = () => <Fragment>Loading...</Fragment>;
 
 const AdaptivePostList = () => {
-  const { animationEnabled } = useContext(AnimationEmulationContext);
+  const { animationAllowed } = useContext(AnimationEmulationContext);
 
-  const adaptivePost = animationEnabled ? (
+  const adaptivePost = animationAllowed ? (
     <AnimationPostList posts={posts} />
   ) : (
     <SimplePostList posts={posts} />
@@ -22,7 +22,7 @@ const AdaptivePostList = () => {
     <Fragment>
       <Nav />
       <h1 className='post-list-title'>
-        {animationEnabled ? 'Next.js & Framer Motion Page' : 'Next.js & Simple Page(No Animation)'}
+        {animationAllowed ? 'Next.js & Framer Motion Page' : 'Next.js & Simple Page(No Animation)'}
       </h1>
       <Suspense fallback={<Loading />}>
         {adaptivePost}
