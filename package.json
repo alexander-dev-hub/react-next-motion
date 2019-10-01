@@ -15,5 +15,17 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-toggle": "^4.0.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexander-dev-hub/react-next-motion.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexander-dev-hub/react-next-motion/issues"
+  },
+  "homepage": "https://github.com/alexander-dev-hub/react-next-motion#readme"
 }
