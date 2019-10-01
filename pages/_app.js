@@ -39,43 +39,32 @@ const MyApp = ({ Component, pageProps, router }) => {
     setIsAnimationOn(event.target.checked);
   };
 
-  if (animationAllowed) {
-    return (
-      <AnimationEmulationContext.Provider
-        value={{
-          manualEnabled,
-          isAnimationOn,
-          animationAllowed,
-          enableManualAnimationHandler: enableManualAnimationHandler,
-          toggleAnimationHandler: toggleAnimationHandler
-        }}>
-        <AnimatePresence exitBeforeEnter>
+  return (
+    <AnimationEmulationContext.Provider
+      value={{
+        manualEnabled,
+        isAnimationOn,
+        animationAllowed,
+        enableManualAnimationHandler: enableManualAnimationHandler,
+        toggleAnimationHandler: toggleAnimationHandler
+      }}>
+        { animationAllowed ? (
+          <AnimatePresence exitBeforeEnter>
+            <Component {...pageProps} key={router.route} />
+          </AnimatePresence>
+        ) : (
           <Component {...pageProps} key={router.route} />
-        </AnimatePresence>
-      </AnimationEmulationContext.Provider>
-    );
-  } else {
-    return (
-      <AnimationEmulationContext.Provider
-        value={{
-          manualEnabled,
-          isAnimationOn,
-          animationAllowed,
-          enableManualAnimationHandler: enableManualAnimationHandler,
-          toggleAnimationHandler: toggleAnimationHandler
-        }}>
-        <Component {...pageProps} key={router.route} />
-      </AnimationEmulationContext.Provider>
-    );
-  }
-}
+        )}
+    </AnimationEmulationContext.Provider>
+  )
+};
 
-MyApp.getInitialProps = async ({Component, ctx}) => {
+MyApp.getInitialProps = async ({ Component, ctx }) => {
   let pageProps;
-  if(Component.getInitialProps) {
+  if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }
-  return {pageProps};
-}
+  return { pageProps };
+};
 
 export default MyApp;
